@@ -13,6 +13,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
+	"github.com/joho/godotenv"
 
 	"dragonfox-mediasync-server/hub"
 	"dragonfox-mediasync-server/protocol"
@@ -26,6 +27,9 @@ var upgrader = websocket.Upgrader{
 }
 
 func main() {
+	if err := godotenv.Load(); err != nil {
+		slog.Warn("no .env file found, using environment variables")
+	}
 	setupLogger()
 
 	port := os.Getenv("PORT")
